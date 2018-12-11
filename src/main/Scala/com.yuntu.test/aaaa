@@ -1,0 +1,9 @@
+foreachRDD(rdd => {
+        rdd.foreachPartition(item => {
+          var value: Double = 0.0
+          while (item.hasNext) {
+            value += item.next()
+          }
+          saveToRedis(redisClient, value)
+        })
+      })

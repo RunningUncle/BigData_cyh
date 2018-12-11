@@ -40,17 +40,17 @@ object Streaming_Redis {
       //      value
     }).map(item => {
       caculatePf(item)
-    }).groupByKeyAndWindow(Seconds(120), Seconds(25))
+    }) //.groupByKeyAndWindow(Seconds(120), Seconds(25))
       .map(item => {
-        val key = item._1
-        var sum: Double = 0.00
-        val it = item._2.toIterator
-        while (it.hasNext) {
-          sum += it.next()
+      val key = item._1
+      var sum: Double = 0.00
+      val it = item._2.toIterator
+      while (it.hasNext) {
+        sum += it.next()
 
-        }
-        (key, sum)
-      }).foreachRDD(rdd => {
+      }
+      (key, sum)
+    }).foreachRDD(rdd => {
       rdd.foreach(item => {
         saveToRedis(item)
       })
