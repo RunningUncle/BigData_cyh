@@ -18,11 +18,11 @@ object Streaming_Redis {
       .getOrCreate()
 
     val ssc: StreamingContext = new StreamingContext(spark.sparkContext, Seconds(5))
-    ssc.checkpoint("hdfs://172.21.32.6:4007/tmp/test/20181211")
+    ssc.checkpoint("1")
 
 
     val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "172.21.32.31:9092",
+      "bootstrap.servers" -> "",
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer], //StringDecoder
       "group.id" -> "tuopu_consumer",
@@ -61,27 +61,6 @@ object Streaming_Redis {
     RedisClient.closeRedisClient(RedisClient.getRedisClient("172.21.32.25", 6379))
   }
 
-  /**
-    * 解析json数据 获取sales 字段
-    * {
-    * "cinema_code": "44131271",
-    * "onlineSales": 980.0,
-    * "reportTime": "2018-11-27 06:04:45",
-    * "service": 120.0,
-    * "onlineSalesCount": 49,
-    * "saleCount": 49,
-    * "sales": 1100.0,
-    * "screenCode": "0000000000000003",
-    * "sessionDatetime": "2018-11-26T20:30:00",
-    * "businessDate": "2018-11-26",
-    * "seats": null,
-    * "sessionCode": "0618112500312054",
-    * "filmCode": "074102212018"
-    * }
-    *
-    * @param jsonStr
-    * @return
-    */
 
   def caculatePf(jsonStr: String): (String, Double) = {
     val jsonParser = new JsonParser
