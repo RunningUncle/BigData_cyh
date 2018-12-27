@@ -20,13 +20,13 @@ object Streaming_Redis {
       .getOrCreate()
 
     val ssc: StreamingContext = new StreamingContext(spark.sparkContext, Seconds(5))
-    ssc.checkpoint("hdfs://172.21.32.6:4007/tmp/test/20181211")
+    ssc.checkpoint("")
 
     val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "172.21.32.31:9092",
+      "bootstrap.servers" -> "",
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer], //StringDecoder
-      "group.id" -> "tuopu_test_1",
+      "group.id" -> "",
       "auto.offset.reset" -> "earliest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
