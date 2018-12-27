@@ -4,9 +4,9 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig
 import redis.clients.jedis.{Jedis, JedisPool}
 
 object RedisClient {
-  val redisHost = "172.21.32.25"
-  val redisPort = 6379
-  val redisTimeout = 30000
+  val redisHost = ""
+  val redisPort = 6
+  val redisTimeout = 30
   lazy val pool = new JedisPool(new GenericObjectPoolConfig(), redisHost, redisPort, redisTimeout)
 
   lazy val hook = new Thread {
